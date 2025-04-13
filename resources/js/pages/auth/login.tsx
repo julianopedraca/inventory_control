@@ -56,18 +56,18 @@ const LogoImage = styled.img`
 
 
 export default function Login({ status, canResetPassword }: LoginProps) {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
-        email: '',
-        password: '',
-        remember: false,
-    });
+    // const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
+    //     email: '',
+    //     password: '',
+    //     remember: false,
+    // });
 
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
-        post(route('login'), {
-            onFinish: () => reset('password'),
-        });
-    };
+    // const submit: FormEventHandler = (e) => {
+    //     e.preventDefault();
+    //     post(route('login'), {
+    //         onFinish: () => reset('password'),
+    //     });
+    // };
 
     return (
         <>
