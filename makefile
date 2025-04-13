@@ -1,5 +1,5 @@
 # Default target
-.PHONY: push dev stop
+.PHONY: push
 
 # Push target that requires branch_name parameter
 push:
@@ -12,4 +12,3 @@ push:
 	git add .
 	git commit -m "$(branch_name)"
 	git push origin $(branch_name)
-
