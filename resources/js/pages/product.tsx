@@ -48,7 +48,7 @@ const CardContent = styled.div`
     padding: 1rem;
 `;
 
-export default function product() {
+export default function ListProduct() {
     const { products } = usePage<PageProps>().props;
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
