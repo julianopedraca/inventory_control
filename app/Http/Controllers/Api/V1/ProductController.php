@@ -67,7 +67,7 @@ class ProductController extends Controller
             ]);
 
             $product->update($validated);
-            return Inertia::render('dashboard');
+            return Inertia::render('product');
         } catch (\Throwable $th) {
             return response()->json(['error' => 'Forbidden'], 403);
         }

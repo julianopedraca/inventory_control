@@ -24,7 +24,7 @@ class ProductController extends Controller
             ];
         });
 
-        return Inertia::render('dashboard', [
+        return Inertia::render('product', [
             'products' => $products,
         ]);
     }

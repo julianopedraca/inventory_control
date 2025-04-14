@@ -12,11 +12,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/produtos', [ProductController::class, 'index'])->name('produtos');
 
     Route::get('/produtos/editar', function () {
-        return Inertia::render('dashboard.edit');
+        return Inertia::render('product.edit');
     })->name('produtos/editar');
 
     Route::get('/produtos/adicionar', function () {
-        return Inertia::render('dashboard.add');
+        return Inertia::render('product.add');
     })->name('produtos/adicionar');
 });
 
