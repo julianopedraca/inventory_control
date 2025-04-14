@@ -42,8 +42,8 @@ class ProductController extends Controller
                 'sku' => 'required|string|unique:products,sku',
             ]);
 
-            $product = Product::create($validated);
-            return response()->json($product, 201);
+            Product::create($validated);
+            return redirect()->route('produtos')->with('flash.success', 'Product created successfully!');
         } catch (\Throwable $th) {
             return response()->json(['error' => 'Forbidden'], 403);
         }
@@ -67,7 +67,7 @@ class ProductController extends Controller
             ]);
 
             $product->update($validated);
-            return Inertia::render('product');
+            return redirect()->route('produtos')->with('flash.success', 'Product created successfully!');
         } catch (\Throwable $th) {
             return response()->json(['error' => 'Forbidden'], 403);
         }
