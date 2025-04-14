@@ -5,8 +5,9 @@ import AuthLayout from '@/layouts/auth-layout';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import styled from 'styled-components';
-import { useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { router, useForm } from '@inertiajs/react';
+import { FormEventHandler, useEffect, useState } from 'react';
+import axios from 'axios';
 
 type LoginForm = {
     email: string;
@@ -23,19 +24,42 @@ const LogoImage = styled.img`
 `;
 
 export default function Login() {
+    const [initialized, setInitialized] = useState(false)
     const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
         email: '',
         password: '',
         remember: false,
     });
 
-    const submit: FormEventHandler = (e) => {
+    useEffect(() => {
+        const token = localStorage.getItem('jwt_token');
+        if (initialized && token) {
+            router.get(route('produtos'));
+        }
+        setInitialized(true)
+    }, [initialized]);
+
+    const submit: FormEventHandler = async (e) => {
         e.preventDefault();
         post(route('login'), {
-            onFinish: () => reset('password'),
+            onSuccess: async () => {
+                try {
+                    const response = await axios.post('/api/v1/login', {
+                        email: data.email,
+                        password: data.password,
+                    });
+                    const { token } = response.data;
+                    localStorage.setItem('jwt_token', token);
+                    reset('password');
+                } catch (error) {
+                    console.error('Failed to get JWT token:', error);
+                }
+            },
+            onError: () => {
+                reset('password');
+            },
         });
     };
-
     return (
         <AuthLayout title="Acesse sua conta!" description="Digite seu email e senha para acessar">
             <Card>

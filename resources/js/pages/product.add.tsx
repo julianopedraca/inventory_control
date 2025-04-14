@@ -41,9 +41,13 @@ export default function AddProduct() {
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        const token = localStorage.getItem('jwt_token');
         post('/api/v1/products', {
             preserveState: true,
             preserveScroll: true,
+            headers: {
+                Authorization: token ? `Bearer ${token}` : '',
+            },
             onSuccess: () => {
                 reset();
                 // const success = usePage().props.flash?.success;

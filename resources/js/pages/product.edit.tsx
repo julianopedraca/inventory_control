@@ -40,17 +40,27 @@ export default function EditProduct() {
         category: '',
     });
 
-
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        const token = localStorage.getItem('jwt_token');
         put(`/api/v1/products/${data.id}`, {
             preserveState: true,
             preserveScroll: true,
+            headers: {
+                Authorization: token ? `Bearer ${token}` : '',
+            },
             onSuccess: () => {
                 reset();
+                // const success = usePage().props.flash?.success;
+                // if (success) {
+                //     alert(success); // Replace with a toast notification for production
+                // }
             },
             onError: (errors) => {
-                console.error('Update failed:', errors);
+                console.error('Create failed:', errors);
+                if (errors.error === 'Forbidden') {
+                    alert('Você não tem permissão para adicionar produtos.');
+                }
             },
         });
     };

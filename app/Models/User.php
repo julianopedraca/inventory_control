@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     protected $fillable = [
@@ -28,6 +27,21 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo('App\Role', 'role_id');
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [
+            'role_id' => $this->role_id,
+            'role' => $this->role ? $this->role->slug : null,
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
     }
 }
