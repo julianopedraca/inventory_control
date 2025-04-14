@@ -2,10 +2,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { Head } from '@inertiajs/react';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 
 const Card = styled.div`
     background: #ffffff;

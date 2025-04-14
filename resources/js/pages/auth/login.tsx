@@ -14,11 +14,6 @@ type LoginForm = {
     remember: boolean;
 };
 
-interface LoginProps {
-    status?: string;
-    canResetPassword: boolean;
-}
-
 const LogoImage = styled.img`
     max-height: 300px;
     width: auto;
