@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { LayoutGrid, Pencil, Plus } from 'lucide-react';
+import { LayoutGrid, Pencil, Plus, Trash } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -21,6 +21,11 @@ const mainNavItems: NavItem[] = [
         title: 'Adicionar',
         href: '/produtos/adicionar',
         icon: Plus,
+    },
+    {
+        title: 'Deletar',
+        href: '/produtos/deletar',
+        icon: Trash,
     },
 ];
 

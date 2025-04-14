@@ -4,6 +4,7 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { useForm } from '@inertiajs/react';
 import { Head } from '@inertiajs/react';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 const Card = styled.div`
@@ -39,9 +40,11 @@ export default function AddProduct() {
         category: '',
     });
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
+
         const token = localStorage.getItem('jwt_token');
+
         post('/api/v1/products', {
             preserveState: true,
             preserveScroll: true,
@@ -50,15 +53,13 @@ export default function AddProduct() {
             },
             onSuccess: () => {
                 reset();
-                // const success = usePage().props.flash?.success;
-                // if (success) {
-                //     alert(success); // Replace with a toast notification for production
-                // }
+                toast.success('Produto adicionado com sucesso!');
             },
             onError: (errors) => {
-                console.error('Create failed:', errors);
-                if (errors.error === 'Forbidden') {
-                    alert('Você não tem permissão para adicionar produtos.');
+                if (errors?.errors) {
+                    toast.error(errors.message);
+                } else {
+                    toast.error('Algo deu errado.');
                 }
             },
         });
