@@ -9,11 +9,17 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('/produtos', [ProductController::class, 'index'])->name('produtos');
+
+    Route::get('/produtos/editar', function () {
+        return Inertia::render('dashboard.edit');
+    })->name('produtos/editar');
+
+    Route::get('/produtos/adicionar', function () {
+        return Inertia::render('dashboard.add');
+    })->name('produtos/adicionar');
 });
 
-Route::resource('products', ProductController::class)->middleware(['auth']);
 require __DIR__ . '/settings.php';
+require __DIR__ . '/api.php';
 require __DIR__ . '/auth.php';
