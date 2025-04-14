@@ -88,22 +88,6 @@ export default function Login() {
                             onChange={(e) => setData('password', e.target.value)}
                         />
                         {errors.password && <div className="text-red-600 text-sm mt-1">{errors.password}</div>}
-                        <div className="text-muted-foreground text-left text-sm mt-1">
-                            <TextLink href={route('password.request')} tabIndex={5}>
-                                Esqueceu a senha?
-                            </TextLink>
-                        </div>
-                    </div>
-                    <div className="mb-5">
-                        <Label htmlFor="remember">
-                            <input
-                                type="checkbox"
-                                id="remember"
-                                checked={data.remember}
-                                onChange={(e) => setData('remember', e.target.checked)}
-                            />
-                            <span className="ml-2">Lembrar-me</span>
-                        </Label>
                     </div>
                     <Button type="submit" className="mt-2 w-full" tabIndex={5} disabled={processing}>
                         Acessar
