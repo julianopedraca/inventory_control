@@ -1,7 +1,6 @@
-# Stockontroll
+# Stockontrol
 
 Este projeto é um sistema completo de controle de estoque. O sistema inclui autenticação de usuários com diferentes níveis de acesso, CRUD de produtos e uma interface responsiva. A API está versionada em `/api/v1/` e requer autenticação via JWT.
-
 
 ## 📦 Tecnologias Utilizadas
 
@@ -32,24 +31,26 @@ Este projeto é um sistema completo de controle de estoque. O sistema inclui aut
    make install
    ```
 
-3. Em um terminal rode o comando:
+3. Inicie os servidores:
    ```bash
-   php artisan serve
+   make start
    ```
 
-4. Em outro terminal rode o comando:
+4. Acesse a aplicação em: [http://localhost:8000](http://localhost:8000)
+
+5. Para parar os servidores:
    ```bash
-   npm run dev
+   make stop
    ```
-
-
-6. Acesse a aplicação em: [http://localhost:8000](http://localhost:8000)
 
 ## 🚀 Comandos Úteis (Makefile)
 
 | Comando          | Descrição                                  |
 |------------------|-------------------------------------------|
-| `make install`   | Instala todas as dependências, adiciona as migrations, adiciona os seeders, cria arquivo .env, gera token jwt            |
+| `make install`   | Instala todas as dependências, configura o ambiente e gera token JWT |
+| `make start`     | Inicia os servidores Laravel e Vite       |
+| `make stop`      | Para os servidores em execução            |
+| `make test`      | Executa os testes com Pest PHP            |
 
 ## 👥 Usuários para Teste
 
@@ -64,3 +65,14 @@ Este projeto é um sistema completo de controle de estoque. O sistema inclui aut
 - **Admin**: Pode criar, editar e excluir produtos
 - **Editor**: Pode visualizar e atualizar estoque, mas não criar/excluir
 - **User**: Apenas visualização dos produtos
+
+## 🧪 Testes
+
+O sistema inclui testes para:
+- User (Criação de usuário)
+- Product (CRUD operations)
+
+Para executar os testes:
+```bash
+make test
+```
