@@ -22,7 +22,7 @@ class CheckAdminRole
             $role = $user->role;
             if (!$role || !in_array($role->slug, ['admin'])) {
                 throw ValidationException::withMessages([
-                    'message' => 'Você não tem permissão para adicionar produtos.',
+                    'message' => 'Você não tem permissão executar essa ação',
                 ]);
             }
 
@@ -37,7 +37,7 @@ class CheckAdminRole
             ]);
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
-                'message' => 'Erro de autenticação.',
+                'message' => 'Você não tem permissão executar essa ação',
             ]);
         }
     }

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Validation\ValidationException;
 
 class CheckEditorRole
 {
@@ -14,21 +15,31 @@ class CheckEditorRole
             $user = JWTAuth::parseToken()->authenticate();
 
             if (!$user) {
-                return response()->json(['error' => 'Unauthorized: User not authenticated'], 401);
+                throw ValidationException::withMessages([
+                    'message' => 'Usuário não autenticado.',
+                ]);
             }
 
             $role = $user->role;
             if (!$role || !in_array($role->slug, ['editor', 'admin'])) {
-                return response()->json(['error' => 'Unauthorized: Not an admin or editor'], 403);
+                throw ValidationException::withMessages([
+                    'message' => 'Você não tem permissão executar essa ação.',
+                ]);
             }
 
             return $next($request);
         } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['error' => 'Invalid token'], 401);
+            throw ValidationException::withMessages([
+                'message' => 'Token inválido.',
+            ]);
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['error' => 'Token expired'], 401);
+            throw ValidationException::withMessages([
+                'message' => 'Token expirado.',
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Authentication error'], 401);
+            throw ValidationException::withMessages([
+                'message' => 'Você não tem permissão executar essa ação.',
+            ]);
         }
     }
 }

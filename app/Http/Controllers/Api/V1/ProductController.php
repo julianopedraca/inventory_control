@@ -67,7 +67,7 @@ class ProductController extends Controller
             ]);
 
             $product->update($validated);
-            return redirect()->route('produtos')->with('flash.success', 'Product created successfully!');
+            return redirect()->route('produtos')->with('flash.success', 'Product updated successfully!');
         } catch (\Throwable $th) {
             return response()->json(['error' => 'Forbidden'], 403);
         }
@@ -75,11 +75,7 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        if (Gate::allows('manage-products')) {
-            $product->delete();
-            return response()->json(null, 204);
-        }
-
-        return response()->json(['error' => 'Forbidden'], 403);
+        $product->delete();
+        return redirect()->route('produtos')->with('flash.success', 'Product deleted successfully!');
     }
 }

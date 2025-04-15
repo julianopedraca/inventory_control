@@ -12,21 +12,6 @@ const mainNavItems: NavItem[] = [
         href: '/produtos',
         icon: LayoutGrid,
     },
-    {
-        title: 'Editar',
-        href: '/produtos/editar',
-        icon: Pencil,
-    },
-    {
-        title: 'Adicionar',
-        href: '/produtos/adicionar',
-        icon: Plus,
-    },
-    {
-        title: 'Deletar',
-        href: '/produtos/deletar',
-        icon: Trash,
-    },
 ];
 
 export function AppSidebar() {
