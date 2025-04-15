@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { LayoutGrid, Pencil, Plus, Trash } from 'lucide-react';
+import { Pencil, Plus, Trash } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { useForm } from '@inertiajs/react';
 
