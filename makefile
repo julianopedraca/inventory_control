@@ -14,6 +14,7 @@ push:
 	git push origin $(branch_name)
 
 start:
+	cp .env.example .env && \ 
 	composer require tymon/jwt-auth && \
 	php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider" && \
 	php artisan jwt:secret && \
