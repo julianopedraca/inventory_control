@@ -29,7 +29,7 @@ Este projeto é um sistema completo de controle de estoque. O sistema inclui aut
 
 2. Instale as dependências:
    ```bash
-   make start
+   make install
    ```
 
 3. Em um terminal rode o comando:
@@ -49,7 +49,7 @@ Este projeto é um sistema completo de controle de estoque. O sistema inclui aut
 
 | Comando          | Descrição                                  |
 |------------------|-------------------------------------------|
-| `make start`   | Instala todas as dependências, adiciona as migrations, adiciona os seeders, cria arquivo .env, gera token jwt            |
+| `make install`   | Instala todas as dependências, adiciona as migrations, adiciona os seeders, cria arquivo .env, gera token jwt            |
 
 ## 👥 Usuários para Teste
 

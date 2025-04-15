@@ -1,5 +1,5 @@
 # Default target
-.PHONY: push start
+.PHONY: push install
 
 # Push target that requires branch_name parameter
 push:
@@ -13,7 +13,7 @@ push:
 	git commit -m "$(branch_name)"
 	git push origin $(branch_name)
 
-start:
+install:
 	cp .env.example .env && \
 	composer require tymon/jwt-auth && \
 	php artisan key:generate && \
