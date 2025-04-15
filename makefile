@@ -16,7 +16,9 @@ push:
 start:
 	cp .env.example .env && \
 	composer require tymon/jwt-auth && \
+	php artisan key:generate && \
 	php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider" && \
 	php artisan jwt:secret && \
 	php artisan migrate && \
-	php artisan db:seed
+	php artisan db:seed && \
+	npm install
