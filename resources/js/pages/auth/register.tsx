@@ -1,6 +1,6 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -11,6 +11,7 @@ import AuthLayout from '@/layouts/auth-layout';
 import { Select, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { SelectContent } from '@radix-ui/react-select';
 import { Card } from '@/components/ui/card';
+import axios from 'axios';
 
 type RegisterForm = {
     name: string;
@@ -25,6 +26,15 @@ type Option = {
 };
 
 export default function Register() {
+    const [initialized, setInitialized] = useState(false)
+    useEffect(() => {
+        const token = localStorage.getItem('jwt_token');
+        if (initialized && token) {
+            router.get(route('produtos'));
+        }
+        setInitialized(true)
+    }, [initialized]);
+
     const [options] = useState<Option[]>([
         { id: 1, name: 'Administrador' },
         { id: 2, name: 'Editor' },
@@ -38,12 +48,27 @@ export default function Register() {
         password_confirmation: '',
     });
 
-    const submit: FormEventHandler = (e) => {
+    const submit: FormEventHandler = async (e) => {
         e.preventDefault();
         post(route('register'), {
-            onFinish: () => reset('password', 'password_confirmation'),
+            onSuccess: async () => {
+                try {
+                    const response = await axios.post('/api/v1/login', {
+                        email: data.email,
+                        password: data.password,
+                    });
+                    const { token } = response.data;
+                    localStorage.setItem('jwt_token', token);
+                    reset('password');
+                } catch (error) {
+                    console.error('Failed to get JWT token:', error);
+                }
+            },
+            onError: () => {
+                reset('password');
+            },
         });
-    };
+    }
 
     return (
         <AuthLayout title="Crie sua conta" description="Digite seus dados para criar uma conta">
